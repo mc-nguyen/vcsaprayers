@@ -58,24 +58,29 @@ export default function PrayerList() {
         fontSize: 15,
         fontWeight: "bold"
     };
+    const divCover = {
+        backgroundColor: "plum",
+        padding: 10,
+        width: (width > 800) ? "50%" : "100%",
+        margin: "auto"
+    };
+
     document.title = "VCSA Intentions"
 
     return (
-        <div style={{backgroundColor: "plum", paddinhTop: 10}}>
-            <Row style={formStyle}>
-                <Col className="my-2">
-                    <h1 style={labelStyle}>Lời cầu nguyện tuần này:</h1>
-                    <ListGroup> {
-                        prayers.map((prayer) => (
-                            <ListGroup.Item style={paragraphStyle}>{prayer}</ListGroup.Item>
-                        ))
-                    }
-                    </ListGroup>
-                </Col>
-                <Col className="my-2">
+        <div className="justify-content-md-center" style={divCover}>
+            <Col >
+                <div style={{ width: "50%", margin: "auto" }}>
                     <Figure.Image src={img.src}/>
-                </Col>
-            </Row>
+                </div>
+                <h1 style={labelStyle}>Lời cầu nguyện tuần này:</h1>
+                <ListGroup> {
+                    prayers.map((prayer) => (
+                        <ListGroup.Item style={paragraphStyle}>{prayer}</ListGroup.Item>
+                    ))
+                }
+                </ListGroup>
+            </Col>
         </div>
     );
 };
