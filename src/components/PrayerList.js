@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Figure, ListGroup, Row} from "react-bootstrap";
+import {Col, Figure, ListGroup} from "react-bootstrap";
 import db from "../database/firebase";
 
 export default function PrayerList() {
@@ -16,9 +16,7 @@ export default function PrayerList() {
                 const date = new Date(data.timeStamp);
                 const today = new Date();
                 if ((today - date) / (1000 * 3600 * 24) < 7) setPrayers(arr => [...arr ,
-                    ((data.sender === "") ? "" : ("Từ " + data.sender))
-                    + ((data.receiver === "") ? "" : ("gửi đến " + data.receiver))
-                    + ((data.receiver === "" && data.sender === "") ? "" : ": ")
+                    ((data.receiver === "") ? "" : ("Gửi đến " + data.receiver + ": "))
                     + data.message]);
             });
         });
@@ -39,11 +37,6 @@ export default function PrayerList() {
     img.height *= .1;
     console.log(img.src + " " + img.width + " " + img.height);
 
-    const formStyle = {
-        margin: "auto",
-        borderRadius: 10,
-        width: (width > 1000) ? "49%": "100%",
-    };
     const labelStyle = {
         fontFamily: "Lobster",
         fontSize: 20,

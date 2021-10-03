@@ -74,6 +74,11 @@ export default function IntentionForm() {
         margin: "20px"
     };
     document.title = "VCSA Intention Forms"
+
+    const boards = ["Cha Kiệt", "Hưng", "Khoa Navy", "Cát Tường", "Bảo Ngọc", "Tường Vy",
+        "Huy Cường", "Quang Vy", "Tuấn Duy", "Duy An", "Thảo Hiền",
+        "Tuấn Kiệt", "Minh Nhật", "Xuân Hà", "Cát Linh", "Xuân Quang"];
+
     return (
         <div style={{ backgroundColor: 'plum', paddingTop: 10 }}>
             <Form className="align-items-center" onSubmit={submit} style={formStyle}>
@@ -99,7 +104,14 @@ export default function IntentionForm() {
                 <Row className="mb-3">
                     <Form.Group as={Col}>
                         <Form.Label style={ labelStyle }>Sender</Form.Label>
-                        <Form.Control type="text" placeholder="Optional" name="sender" onChange={event => {setSender(event.target.value);}} style={paragraphStyle} value={sender}/>
+                        <Form.Control as="select" style={paragraphStyle} onChange={event => setSender(event.target.value)} value={sender}>
+                            <option>Please drop down to select your name</option>
+                            {
+                                boards.map((board) => (
+                                    <option value={board}>{board}</option>
+                                ))
+                            }
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col}>
                         <Form.Label style={ labelStyle }>Receiver</Form.Label>

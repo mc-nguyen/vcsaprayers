@@ -6,6 +6,7 @@ import Appreciation from "./components/Appreciation";
 import PrayerList from "./components/PrayerList";
 import Navigation from "./components/Navigation";
 import PopPrayer from "./components/PopPrayers";
+import Admin from "./database/Admin";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/appreciation"><Appreciation/></Route>
                     <Route path="/intentions"><PrayerList/></Route>
                     <Route path="/popular-prayers"><PopPrayer/></Route>
+                    <Route path="/admin"><Admin/></Route>
                 </Switch>
             </div>
         </Router>
