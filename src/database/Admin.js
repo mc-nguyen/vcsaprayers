@@ -56,7 +56,7 @@ export default function Admin() {
                 const data = element.data();
                 const today = Date.now();
                 if ((today - data.timeStamp) / (1000 * 3600 * 24) < 7)
-                    setSent(sent.set(data.board, sent.get(data.board) + data.message.split(' ').length + (data.receiver === '' ? 0 : data.receiver.split(' ').length + 2)));
+                    setSent(sent.set(data.board, true));
                 console.log(sent);
             });
         });
@@ -72,21 +72,21 @@ export default function Admin() {
     }
 
     const [sent, setSent] = useState(new Map([
-        ["Hưng", 0],
-        ["Khoa Navy", 0],
-        ["Cát Tường", 0],
-        ["Bảo Ngọc", 0],
-        ["Tường Vy", 0],
-        ["Huy Cường", 0],
-        ["Quang Vy", 0],
-        ["Tuấn Duy", 0],
-        ["Duy An", 0],
-        ["Thảo Hiền", 0],
-        ["Tuấn Kiệt", 0],
-        ["Minh Nhật", 0],
-        ["Xuân Hà", 0],
-        ["Cát Linh", 0],
-        ["Xuân Quang", 0]
+        ["Hưng", false],
+        ["Khoa Navy", false],
+        ["Cát Tường", false],
+        ["Bảo Ngọc", false],
+        ["Tường Vy", false],
+        ["Huy Cường", false],
+        ["Quang Vy", false],
+        ["Tuấn Duy", false],
+        ["Duy An", false],
+        ["Thảo Hiền", false],
+        ["Tuấn Kiệt", false],
+        ["Minh Nhật", false],
+        ["Xuân Hà", false],
+        ["Cát Linh", false],
+        ["Xuân Quang", false]
     ]));
 
     window.addEventListener('load', () => {

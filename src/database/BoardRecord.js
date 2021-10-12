@@ -31,8 +31,8 @@ export default function BoardRecord(props) {
                         {
                             boards[group].map((board, boardIndex) =>
                                 <td key={boardIndex} style={{
-                                    backgroundColor: (props.sent.get(board) < 25) ? "yellow" : "green",
-                                    color: (props.sent.get(board) < 25) ? "black" : "white"
+                                    backgroundColor: props.sent.get(board) ? "yellow" : "green",
+                                    color: props.sent.get(board) ? "black" : "white"
                                 }}>{board}</td>
                             )
                         }

@@ -95,7 +95,7 @@ export default function IntentionForm() {
     return (
         <div style={{ backgroundColor: 'plum', paddingTop: 10 }}>
             <Form className="align-items-center" onSubmit={submit} style={formStyle}
-                onChange={(message !== "" && boardName !== "" && agreement) ? enabledButton : console.log("Not Yet")}>
+                onChange={(message.split(" ").length >= 15 && boardName !== "" && agreement) ? enabledButton : console.log("Not Yet")}>
                 <Card className="mb-3" style={paragraphStyle}>
                     <Card.Body style={{ marginHeight: 10 }}>
                         <Card.Title style={{fontWeight: "bolder", fontSize: 20}}>Hello hai Cha and Boards, </Card.Title>
