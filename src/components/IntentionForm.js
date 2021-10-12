@@ -5,10 +5,7 @@ import db from "../database/firebase";
 import Appreciation from "./Appreciation";
 
 export default function IntentionForm() {
-    const [disabledButton, enabledButton] = useReducer(
-        (disabledButton) => !disabledButton,
-        true
-    );
+    const [button, setButton] = useState(false);
     const [agreement, changeMind] = useReducer(
         (agreement) => !agreement,
         false
@@ -26,6 +23,12 @@ export default function IntentionForm() {
     const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
+        console.log({
+            button: !button,
+            agree: agreement,
+            board: boardName,
+            message: message,
+        })
         function handleResize() {
             setWidth(window.innerWidth);
         }
@@ -48,7 +51,7 @@ export default function IntentionForm() {
         }).then(() => {
             console.log("Added a prayer!")});
 
-        enabledButton();
+        setButton(false);
         setBoard("");
         setSender("");
         setReceiver("");
@@ -95,7 +98,15 @@ export default function IntentionForm() {
     return (
         <div style={{ backgroundColor: 'plum', paddingTop: 10 }}>
             <Form className="align-items-center" onSubmit={submit} style={formStyle}
-                onChange={(message.split(" ").length >= 15 && boardName !== "" && agreement) ? enabledButton : console.log("Not Yet")}>
+                onChange={() => {
+                    setButton((message.split(" ").length >= 15 && boardName !== "" && agreement) ? true : false)
+                    console.log({
+                        button: !button,
+                        agree: agreement,
+                        board: boardName,
+                        message: message.split(" ").length
+                    })
+                }}>
                 <Card className="mb-3" style={paragraphStyle}>
                     <Card.Body style={{ marginHeight: 10 }}>
                         <Card.Title style={{fontWeight: "bolder", fontSize: 20}}>Hello hai Cha and Boards, </Card.Title>
@@ -146,7 +157,7 @@ export default function IntentionForm() {
                 </Form.Group>
 
                 <div align="center">
-                    <Button type="submit" size={"lg"} style={buttonStyle} disabled={disabledButton}>Submit</Button>
+                    <Button type="submit" size={"lg"} style={buttonStyle} disabled={!button}>Submit</Button>
                 </div>
             </Form>
 
