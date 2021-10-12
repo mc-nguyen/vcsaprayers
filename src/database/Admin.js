@@ -1,13 +1,14 @@
-import {Alert, Button, Col, Form, ListGroup, Row} from "react-bootstrap";
+import {Alert, Button, Col, Form, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
+import BoardRecord from "./BoardRecord";
 import db from "./firebase";
 
 export default function Admin() {
-    const [width, setWidth] = useState(window.innerWidth);
     const [error, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(true);
+    const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         function handleResize() {
@@ -17,6 +18,7 @@ export default function Admin() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
     const labelStyle = {
         fontFamily: "Lobster",
         fontSize: 20
@@ -32,7 +34,7 @@ export default function Admin() {
         width: 300,
     };
     const paragraphStyle = {
-        fontFamily: "LibreBaskerville",
+        fontFamily: "Lora",
         fontSize: 14
     };
     const formStyle = (width > 1040) ? {
@@ -40,17 +42,25 @@ export default function Admin() {
         padding: 30,
         borderRadius: 30,
         width: "50%",
-        margin: 0,
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
+        margin: "10px auto",
     } : {
         background: "white",
         margin: 10,
         padding: 30,
         borderRadius: 30,
     };
+
+    function fetchData() {
+        db.collection("prayers").get().then((querySnapshot) => {
+            querySnapshot.forEach(element => {
+                const data = element.data();
+                const today = Date.now();
+                if ((today - data.timeStamp) / (1000 * 3600 * 24) < 7)
+                    setSent(sent.set(data.board, sent.get(data.board) + data.message.split(' ').length + (data.receiver === '' ? 0 : data.receiver.split(' ').length + 2)));
+                console.log(sent);
+            });
+        });
+    }
 
     function checkLogIn() {
         console.log("working");
@@ -61,20 +71,27 @@ export default function Admin() {
         else setError(true);
     }
 
-    const [sentPrayers, setSentPrayers] = useState([])
+    const [sent, setSent] = useState(new Map([
+        ["Hưng", 0],
+        ["Khoa Navy", 0],
+        ["Cát Tường", 0],
+        ["Bảo Ngọc", 0],
+        ["Tường Vy", 0],
+        ["Huy Cường", 0],
+        ["Quang Vy", 0],
+        ["Tuấn Duy", 0],
+        ["Duy An", 0],
+        ["Thảo Hiền", 0],
+        ["Tuấn Kiệt", 0],
+        ["Minh Nhật", 0],
+        ["Xuân Hà", 0],
+        ["Cát Linh", 0],
+        ["Xuân Quang", 0]
+    ]));
+
     window.addEventListener('load', () => {
         fetchData();
     });
-    function fetchData() {
-        db.collection("prayers").get().then((querySnapshot) => {
-            querySnapshot.forEach(element => {
-                const data = element.data();
-                const date = new Date(data.timeStamp);
-                const today = new Date();
-                if ((today - date) / (1000 * 3600 * 24) < 7 && data.sender !== "") setSentPrayers(arr => [...arr , data.sender]);
-            });
-        });
-    }
 
     return (
         <div>
@@ -122,14 +139,11 @@ export default function Admin() {
                     <Button size={"lg"} style={buttonStyle} onClick={checkLogIn}>Log In</Button>
                 </div>
             </Alert>
-            {!show && <ListGroup style={formStyle}>
-                <h1 style={labelStyle}>Danh Sách Đã Gửi Lời Cầu Nguyện</h1>
-                {
-                sentPrayers.map((prayer) => (
-                    <ListGroup.Item style={paragraphStyle}>{prayer}</ListGroup.Item>
-                ))
+            {!show && <BoardRecord style={{
+                paragraphStyle: paragraphStyle,
+                labelStyle: labelStyle
+            }} width={width} sent={sent}/>
             }
-            </ListGroup>}
         </div>
     );
 };

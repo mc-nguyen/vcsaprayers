@@ -13,11 +13,11 @@ export default function PrayerList() {
         db.collection("prayers").get().then((querySnapshot) => {
             querySnapshot.forEach(element => {
                 const data = element.data();
-                const date = new Date(data.timeStamp);
-                const today = new Date();
-                if ((today - date) / (1000 * 3600 * 24) < 7) setPrayers(arr => [...arr ,
+                const today = Date.now();
+                if ((today - data.timeStamp) / (1000 * 3600 * 24) < 7) setPrayers(arr => [...arr ,
                     ((data.receiver === "") ? "" : ("Gửi đến " + data.receiver + ": "))
                     + data.message]);
+                else db.collection("prayers").doc(element.id).delete().then(() => console.log("Hê hế!"));
             });
         });
     }
@@ -30,12 +30,6 @@ export default function PrayerList() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    const img = new Image();
-    img.src = "images/list.jpg";
-    img.width *= .1;
-    img.height *= .1;
-    console.log(img.src + " " + img.width + " " + img.height);
 
     const labelStyle = {
         fontFamily: "Lobster",
@@ -58,18 +52,18 @@ export default function PrayerList() {
         margin: "auto"
     };
 
-    document.title = "VCSA Intentions"
+    document.title = "VCSA Intentions";
 
     return (
         <div className="justify-content-md-center" style={divCover}>
             <Col >
-                <div style={{ width: "50%", margin: "auto" }}>
-                    <Figure.Image src={img.src}/>
+                <div style={{ margin: "auto" }}>
+                    <Figure.Image src="images/list.jpg"/>
                 </div>
                 <h1 style={labelStyle}>Lời cầu nguyện tuần này:</h1>
                 <ListGroup> {
-                    prayers.map((prayer) => (
-                        <ListGroup.Item style={paragraphStyle}>{prayer}</ListGroup.Item>
+                    prayers.map((prayer, i) => (
+                        <ListGroup.Item style={paragraphStyle} key={i}>{prayer}</ListGroup.Item>
                     ))
                 }
                 </ListGroup>
