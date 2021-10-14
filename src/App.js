@@ -6,7 +6,7 @@ import PrayerList from "./components/PrayerList";
 import Navigation from "./components/Navigation";
 import PopPrayer from "./components/PopPrayers";
 import Admin from "./database/Admin";
-import {onMessageListener} from "./database/firebase";
+import {getToken, onMessageListener} from "./database/firebase";
 import {ReactNotificationComponent} from "./components/ReactNotificationComponent";
 import {Notifications} from "./components/Notification";
 
@@ -15,17 +15,23 @@ function App() {
     const [notification, setNotification] = useState({title:"",body:""});
 
     useEffect(() => {
-        onMessageListener()
-            .then((payload) => {
-                setShow(true);
-                setNotification({
-                    title: payload.notification.title,
-                    body: payload.notification.body,
-                });
-                console.log(payload);
-            })
-            .catch((err) => console.log("failed: ", err));
-    })
+        if (window.swUpdateReady) {
+            window.swUpdateReady = false;
+            window.stop();
+            window.location.reload();
+        }
+    });
+
+    onMessageListener()
+        .then((payload) => {
+            setShow(true);
+            setNotification({
+                title: payload.notification.title,
+                body: payload.notification.body,
+            });
+            console.log(payload);
+        })
+        .catch((err) => console.log("failed: ", err));
 
     return (
         <div>

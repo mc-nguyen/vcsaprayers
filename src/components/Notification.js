@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {getToken} from "../database/firebase";
 
-export const Notifications = (props) => {
+export const Notifications = () => {
     const [isTokenFound, setTokenFound] = useState(false);
     console.log("Token found", isTokenFound);
     useEffect(() => {
