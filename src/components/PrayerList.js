@@ -13,8 +13,10 @@ export default function PrayerList() {
         db.collection("prayers").get().then((querySnapshot) => {
             querySnapshot.forEach(element => {
                 const data = element.data();
-                const today = Date.now();
-                if ((today - data.timeStamp) / (1000 * 3600 * 24) < 7) setPrayers(arr => [...arr ,
+                let lastSunday = new Date();
+                lastSunday -= lastSunday.getDay() * 1000 * 3600 * 24;
+                lastSunday = new Date(lastSunday);
+                if (lastSunday < data.timeStamp) setPrayers(arr => [...arr ,
                     ((data.receiver === "") ? "" : ("Gửi đến " + data.receiver + ": "))
                     + data.message]);
                 else db.collection("prayers").doc(element.id).delete().then(() => console.log("Hê hế!"));
