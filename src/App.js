@@ -6,6 +6,7 @@ import PrayerList from "./components/PrayerList";
 import Navigation from "./components/Navigation";
 import PopPrayer from "./components/PopPrayers";
 import Admin from "./database/Admin";
+import CheckIn from "./components/CheckIn";
 import {getToken, onMessageListener} from "./database/firebase";
 import {ReactNotificationComponent} from "./components/ReactNotificationComponent";
 import {Notifications} from "./components/Notification";
@@ -50,6 +51,7 @@ function App() {
                         <Route path="/intentions"><PrayerList/></Route>
                         <Route path="/popular-prayers"><PopPrayer/></Route>
                         <Route path="/admin"><Admin/></Route>
+                        <Route path="/check-in"><CheckIn/></Route>
                     </Switch>
                 </div>
             </Router>
