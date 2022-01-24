@@ -2,9 +2,9 @@ import React from "react";
 import {Table} from "react-bootstrap";
 
 export default function BoardRecord(props) {
-    const boards = {"Big 5": ["Hưng", "Khoa Navy", "Cát Tường", "Bảo Ngọc", "Tường Vy"],
-        "New Boards": ["Huy Cường", "Quang Vy", "Tuấn Duy", "Duy An", "Thảo Hiền"],
-        "Trainees": ["Tuấn Kiệt", "Minh Nhật", "Xuân Hà", "Cát Linh", "Xuân Quang"]};
+    const boards = ["Cha Kiệt", "Hưng", "Khoa Navy", "Cát Tường", "Bảo Ngọc", "Tường Vy",
+        "Huy Cường", "Quang Vy", "Tuấn Duy", "Duy An", "Thảo Hiền",
+        "Tuấn Kiệt", "Minh Nhật", "Xuân Hà", "Cát Linh", "Xuân Quang","Brian Trần", "Quang Nguyễn", "Tiến Nguyễn", "Đại Vương", "Lân Hoàng", "Mai Thy"];
 
     const groups = ["Big 5", "New Boards", "Trainees"];
 
