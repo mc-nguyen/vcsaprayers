@@ -93,7 +93,7 @@ export default function IntentionForm() {
 
     const boards = ["Cha Kiệt", "Hưng", "Khoa Navy", "Cát Tường", "Bảo Ngọc", "Tường Vy",
         "Huy Cường", "Quang Vy", "Tuấn Duy", "Duy An", "Thảo Hiền",
-        "Tuấn Kiệt", "Minh Nhật", "Xuân Hà", "Cát Linh", "Xuân Quang"];
+        "Tuấn Kiệt", "Minh Nhật", "Xuân Hà", "Cát Linh", "Xuân Quang","Brian Trần", "Quang Nguyễn", "Tiến Nguyễn", "Đại Vương", "Lân Hoàng", "Mai Thy"];
 
     return (
         <div style={{ backgroundColor: 'plum', paddingTop: 10 }}>
